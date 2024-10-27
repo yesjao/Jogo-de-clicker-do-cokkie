@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clique no Cookie!</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0e68c;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            padding: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #cookie {
+            width: 100px;
+            height: 100px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Chocolate_chip_cookie_%28cropped%29.jpg/1200px-Chocolate_chip_cookie_%28cropped%29.jpg') no-repeat center;
+            background-size: cover;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>Clique no Cookie!</h1>
+    <button id="cookie" onclick="clicarCookie()"></button>
+    <h2>Pontos: <span id="pontos">0</span></h2>
+    <h3>Upgrades</h3>
+    <button onclick="comprarUpgrade()">Comprar Upgrade (10 pontos)</button>
+    <h3>Renascer</h3>
+    <button onclick="renascer()">Renascer (100 pontos)</button>
+    <h2 id="mensagem"></h2>
+
+    <script>
+        let pontos = 0;
+        let upgrade = 0;
+
+        function clicarCookie() {
+            pontos += (1 + upgrade);
+            atualizarPontos();
+        }
+
+        function comprarUpgrade() {
+            if (pontos >= 10) {
+                pontos -= 10;
+                upgrade++;
+                atualizarPontos();
+            } else {
+                document.getElementById("mensagem").textContent = "Pontos insuficientes!";
+            }
+        }
+
+        function renascer() {
+            if (pontos >= 100) {
+                pontos = 0;
+                upgrade = 0;
+                atualizarPontos();
+                document.getElementById("mensagem").textContent = "Você renasceu e perdeu todos os pontos, mas está mais forte!";
+            } else {
+                document.getElementById("mensagem").textContent = "Você precisa de 100 pontos para renascer!";
+            }
+        }
+
+        function atualizarPontos() {
+            document.getElementById("pontos").textContent = pontos;
+            document.getElementById("mensagem").textContent = "";
+        }
+    </script>
+</body>
+</html>
